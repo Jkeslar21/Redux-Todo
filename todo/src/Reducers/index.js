@@ -1,5 +1,4 @@
 import { ADD_TODO, TOGGLE_TODO } from '../Actions';
-import TodoList from '../Components/TodoList';
 
 //Gabe's Master Work (id creator)
 let idCounter = () => {
@@ -12,7 +11,7 @@ let idCounter = () => {
 const idUp = idCounter();
 
 const initialState = {
-    todos: [{text: 'First Todo!!!', completed: false, id: idUp()}]
+    todos: [{text: '', completed: false, id: idUp()}]
 }
 
 function reducer(state = initialState, action) {

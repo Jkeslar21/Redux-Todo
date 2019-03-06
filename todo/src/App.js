@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <h1>its connected!</h1>
+       <h1>Task List</h1>
        <TodoList />
       </div>
     );

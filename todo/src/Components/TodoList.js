@@ -22,7 +22,7 @@ class TodoList extends Component {
       <>
         <div>
             {this.props.todoList.map((todo, index) => (
-                <p key={index} onClick={() => this.toggleTask(index)}>{todo.text}</p>
+                <p key={index} onClick={() => this.toggleTask(index)} className={todo.completed ? 'completed' : null }>{todo.text}</p>
             ))}
         </div>
         <input type='text' placeholder='Add Task Here' name='newTodo' value={this.state.newTodo} onChange={this.changeHandler} />
