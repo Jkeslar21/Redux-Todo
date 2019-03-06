@@ -1,48 +1,48 @@
-import { combineReducers } from 'redux'
-import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  SET_VISIBILITY_FILTER,
-  VisibilityFilters
-} from './actions'
-const { SHOW_ALL } = VisibilityFilters
+import { ADD_TODO, TOGGLE_TODO } from '../Actions';
+import TodoList from '../Components/TodoList';
 
-function visibilityFilter(state = SHOW_ALL, action) {
-  switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.filter
-    default:
-      return state
-  }
+//Gabe's Master Work (id creator)
+let idCounter = () => {
+    let id = 0;
+    return function countUp() {
+        return id++
+    }
 }
 
-function todos(state = [], action) {
+const idUp = idCounter();
+
+const initialState = {
+    todos: [{text: 'First Todo!!!', completed: false, id: idUp()}]
+}
+
+function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      return [
+    const newTodo = {
+        text: action.payload,
+        completed: false,
+        id: idUp()
+    }
+      return {
         ...state,
-        {
-          text: action.text,
-          completed: false
-        }
-      ]
+          todos: [...state.todos, newTodo]
+    }
     case TOGGLE_TODO:
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return Object.assign({}, todo, {
-            completed: !todo.completed
+      return {
+          ...state,
+          todos: state.todos.map((todo, index) => {
+              if (index === action.payload) {
+                  return {
+                      ...todo,
+                      completed: !todo.completed
+                  };
+              }
+              return todo;
           })
-        }
-        return todo
-      })
+      }; 
     default:
       return state
   }
 }
 
-const todoApp = combineReducers({
-  visibilityFilter,
-  todos
-})
-
-export default todoApp
+export default reducer;
